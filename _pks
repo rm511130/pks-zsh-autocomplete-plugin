@@ -1,4 +1,6 @@
 #compdef pks
+# Tyler Britten
+# tyler@britten.us
 
 # Output a selectable list of clusters
 __pks_clusters() {
@@ -9,6 +11,7 @@ __pks_clusters() {
 }
 
 # Output a selectable list of plans
+# TODO add to plan options during create-cluster
 __pks_plans() {
     declare -a cont_cmd
     cont_cmd=($(pks plans | awk -F '  ' 'NR>2{print $1}'))
