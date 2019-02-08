@@ -1,0 +1,204 @@
+#compdef pks
+
+# Output a selectable list of clusters
+__pks_clusters() {
+    declare -a cont_cmd
+    cont_cmd=($(pks clusters | awk -F '  ' 'NR>2{print $1}'))
+    if [[ 'X$cont_cmd' != 'X' ]]
+        _describe 'CLUSTER' cont_cmd
+}
+
+# Output a selectable list of plans
+__pks_plans() {
+    declare -a cont_cmd
+    cont_cmd=($(pks plans | awk -F '  ' 'NR>2{print $1}'))
+    if [[ 'X$cont_cmd' != 'X' ]]
+        _describe 'PLANS' cont_cmd
+}
+
+# Output a selectable list of network profiles
+__pks_network-profiles() {
+    declare -a cont_cmd
+    cont_cmd=($(pks network-profiles | awk -F '  ' 'NR>2{print $1}'))
+    if [[ 'X$cont_cmd' != 'X' ]]
+        _describe 'NETWORK-PROFILES' cont_cmd
+}
+
+
+local -a _pks_cmds
+_pks_cmds=(
+  'cluster:View the details of the cluster'
+  'clusters:Show all clusters created with PKS'
+  'create-cluster:Creates a kubernetes cluster, requires cluster name, an external host name, and plan'
+  'create-network-profile:Create a network profile'
+  'create-sink:Creates a sink for sending all log data to syslog://'
+  'delete-cluster:Deletes a kubernetes cluster, requires cluster name'
+  'delete-network-profile:Delete a network profile'
+  'delete-sink:Deletes a sink from the given cluster'
+  'get-credentials:Allows you to connect to a cluster and use kubectl'
+  'help:Help about any command'
+  'login:Log in to PKS'
+  'logout:Log out of PKS'
+  'network-profile:View a network profile'
+  'network-profiles:Show all network profiles created with PKS'
+  'plans:View the preconfigured plans available'
+  'resize:Changes the number of worker nodes for a cluster'
+  'sinks:List sinks for the given cluster'
+)
+
+__cluster() {
+    _arguments \
+      '1:cluster name:__pks_clusters' \
+      '--help[help for cluster]' \
+      '--json[Return the PKS-API output as json]'
+}
+
+__clusters() {
+    _arguments \
+      '--help[help for clusters]' \
+      '--json[Return the PKS-API output as json]'  
+}
+
+__create-cluster() {
+    _arguments \
+        '1:cluster name' \
+        '--external-hostname[Address from which to access Kubernetes API]' \
+        '--help[help for create-cluster]' \
+        '--json[Return the PKS-API output as json]' \
+        '--network-profile[Optional, network profile name (NSX-T only)]' \
+        '--non-interactive[Dont ask for user input]' \
+        '--num-nodes[Number of worker nodes]' \
+        '--plan[Preconfigured plans. Run pks plans for more details]' \
+        '--wait[Wait for the operation to finish]' 
+}
+
+__create-network-profile() {
+    _arguments \
+        '1:network-profile-JSON-path' \
+        '--help[help for create-network-profile]' \
+}
+
+__create-sink() {
+    _arguments \
+        '1:cluster name:__pks_clusters' \
+        '2:sink url' \
+        '--name[Sink Name]' \
+        '--help[help for create-sink]' \
+}
+
+__delete-cluster() {
+    _arguments \
+        '1:cluster name:__pks_clusters' \
+        '--help[help for delete-cluster]' \
+        '--non-interactive[Dont ask for user input]' \
+        '--wait[Wait for the operation to finish]' 
+}
+
+__delete-network-profile() {
+    _arguments \
+        '1:network-profile-name' \
+        '--help[help for delete-network-profile]' \
+        '--non-interactive[Dont ask for user input]' \
+}
+
+__delete-sink() {
+    _arguments \
+        '1:cluster name:__pks_clusters' \
+        '--name[Sink Name]' \
+        '--help[help for delete-sink]' \
+}
+
+__get-credentials() {
+    _arguments \
+      '1:cluster name:__pks_clusters' \
+      '--help[help for cluster]' \
+}
+
+__login() {
+    _arguments \
+      '--api[The PKS API server URI]' \
+      '--ca-cert[Path to CA Cert for PKS API]' \
+      '--client-name[Client name]' \
+      '--client-secret[Client secret]' \
+      '--help[help for login]' \
+      '--password[Password]' \
+      '--skip-ssl-validation[Skip SSL Validation]' \
+      '--username[Username]' \
+}
+
+__network-profile() {
+    _arguments \
+      '1:network profile:__pks_network-profiles' \
+      '--help[help for network-profile]' \
+      '--json[Return the PKS-API output as json]'
+}
+
+__network-profiles() {
+    _arguments \
+      '--help[help for network-profile]' \
+      '--json[Return the PKS-API output as json]'
+}
+
+__plans() {
+    _arguments \
+      '--help[help for network-profile]' \
+      '--json[Return the PKS-API output as json]'
+}
+
+__resize() {
+    _arguments \
+        '1:cluster name:__pks_clusters' \
+        '--help[help for resize]' \
+        '--json[Return the PKS-API output as json. Only applicable when used with --wait flag]' \
+        '--non-interactive[Dont ask for user input]' \
+        '--num-nodes[Number of worker nodes (default 1)]' \
+        '--wait[Wait for the operation to finish]' 
+}
+
+__sinks() {
+    _arguments \
+        '1:cluster name:__pks_clusters' \
+        '--help[help for sinks]' \
+        '--json[Return the PKS-API output as json]' \
+}
+
+_arguments '*:: :->command'
+
+if (( CURRENT == 1 )); then
+  _describe -t commands "pks command" _pks_cmds
+  return
+fi
+
+local -a _command_args
+case "$words[1]" in
+  cluster)
+    __cluster ;;
+  clusters)
+    __clusters;;
+  create-cluster)
+    __create-cluster ;;
+  create-network-profile)
+    __create-network-profile;;
+  create-sink)
+    __create-sink ;;
+  delete-cluster)
+    __delete-cluster ;;
+  delete-network-profile)
+    __delete-network-profile;;
+  delete-sink)
+    __delete-sink ;;
+  get-credentials)
+    __get-credentials ;;
+  login)
+    __login ;;
+  network-profile)
+    __network-profile ;;
+  network-profiles)
+    __network-profiles ;;
+  plans)
+    __plans ;;
+  resize)
+    __resize ;;
+  sinks)
+    __sinks ;;
+esac
