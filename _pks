@@ -5,7 +5,12 @@
 # Output a selectable list of clusters
 __pks_clusters() {
     declare -a cont_cmd
-    cont_cmd=($(pks clusters | awk -F '  ' 'NR>2{print $1}'))
+    if [[ $(pks --version | awk -F '.' '{print $2}') -lt 5 ]]
+    then
+      cont_cmd=($(pks clusters | awk -F '  ' 'NR>2{print $1}'))
+    else
+      cont_cmd=($(pks clusters | awk 'NR>2{print $1}'))
+    fi
     if [[ 'X$cont_cmd' != 'X' ]]
         _describe 'CLUSTER' cont_cmd
 }
@@ -14,7 +19,7 @@ __pks_clusters() {
 # TODO add to plan options during create-cluster
 __pks_plans() {
     declare -a cont_cmd
-    cont_cmd=($(pks plans | awk -F '  ' 'NR>2{print $1}'))
+    cont_cmd=($(pks plans --json | grep "\"name\":" | awk '{ gsub("\"","",$2); gsub(",","",$2); print $2; }'))
     if [[ 'X$cont_cmd' != 'X' ]]
         _describe 'PLANS' cont_cmd
 }
@@ -39,6 +44,7 @@ _pks_cmds=(
   'delete-network-profile:Delete a network profile'
   'delete-sink:Deletes a sink from the given cluster'
   'get-credentials:Allows you to connect to a cluster and use kubectl'
+  'get-kubeconfig:Allows you to get kubeconfig for your username'
   'help:Help about any command'
   'login:Log in to PKS'
   'logout:Log out of PKS'
@@ -47,6 +53,8 @@ _pks_cmds=(
   'plans:View the preconfigured plans available'
   'resize:Changes the number of worker nodes for a cluster'
   'sinks:List sinks for the given cluster'
+  'update-cluster:Updates the configuration of a specific kubernetes cluster'
+  'upgrade-cluster:Upgrades the kubernetes clusters'
 )
 
 __cluster() {
@@ -71,7 +79,7 @@ __create-cluster() {
         '--network-profile[Optional, network profile name (NSX-T only)]' \
         '--non-interactive[Dont ask for user input]' \
         '--num-nodes[Number of worker nodes]' \
-        '--plan[Preconfigured plans. Run pks plans for more details]' \
+        '--plan[Preconfigured plans. Run pks plans for more details]:plans existing_plans:__pks_plans' \
         '--wait[Wait for the operation to finish]' 
 }
 
@@ -116,7 +124,19 @@ __get-credentials() {
       '1:cluster name:__pks_clusters' \
       '--help[help for cluster]' \
 }
-
+__get-kubeconfig() {
+    _arguments \
+      '1:cluster name:__pks_clusters' \
+      '--api[The PKS API server URI]' \
+      '--ca-cert[Path to CA Cert for PKS API]' \
+      '--help[help for login]' \
+      '--password[Password]' \
+      '--skip-ssl-validation[Skip SSL Validation]' \
+      '--sso[Prompt for a one-time passcode to do Single sign-on]' \
+      '--sso-auto[Auto launch local browser to do Single sign-on]' \
+      '--sso-passcode string[Single sign-on with one-time passcode]' \
+      '--username[Username]' \
+}
 __login() {
     _arguments \
       '--api[The PKS API server URI]' \
@@ -165,6 +185,31 @@ __sinks() {
         '--json[Return the PKS-API output as json]' \
 }
 
+__update-cluster(){
+    _arguments \
+        '1:cluster name:__pks_clusters' \
+        '--network-profile[Action flag, Network profile name]' \
+        '--num-nodes[Action flag, Number of worker nodes]' \
+        '--kubelet-drain-timeout[Action flag, The length of time in minutes for drain to wait before giving up.]' \
+        '--kubelet-drain-grace-period[Action flag, Period of time in seconds given to each pod to terminate gracefully.]' \
+        '--kubelet-drain-force[Action flag, Force drain even if there are pods not managed by a ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet.]' \
+        '--kubelet-drain-ignore-daemonsets[Action flag, Ignore DaemonSet managed pods during drain.]' \
+        '--kubelet-drain-delete-local-data[Action flag, Drain even if there are pods using emptyDir.]' \
+        '--kubelet-drain-force-node[Action flag, Forcefully terminate pods which fail to drain. Use it with caution.]' \
+        '--non-interactive[Dont ask for user input]' \
+        '--json[Return the PKS-API output as json]' \
+        '--wait[Wait for the operation to finish]' \
+        '--help[help for update-cluster]'
+}
+
+__upgrade-cluster() {
+    _arguments \
+        '1:cluster name:__pks_clusters' \
+        '--help[help for upgrade-cluster]' \
+        '--json[Return the PKS-API output as json. Only applicable when used with --wait flag]' \
+        '--non-interactive[Dont ask for user input]'
+}
+
 _arguments '*:: :->command'
 
 if (( CURRENT == 1 )); then
@@ -192,6 +237,8 @@ case "$words[1]" in
     __delete-sink ;;
   get-credentials)
     __get-credentials ;;
+  get-kubeconfig)
+    __get-kubeconfig ;;
   login)
     __login ;;
   network-profile)
@@ -204,4 +251,8 @@ case "$words[1]" in
     __resize ;;
   sinks)
     __sinks ;;
+  update-cluster)
+    __update-cluster ;;
+  upgrade-cluster)
+    __upgrade-cluster ;;
 esac
