@@ -1,6 +1,6 @@
 # [PKS](https://pivotal.io/platform/pivotal-container-service) CLI zsh autocomplete plugin
 
-We use a [zsh](http://www.zsh.org/) plugin to add [zsh autocompletion](https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org) options for all PKS CLI Commands
+We use the [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) custom plugin framework for [zsh](http://www.zsh.org/) [autocompletion](https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org) to enhance the PKS CLI experience with options for all its PKS commands.
 
 # How will it work?
 
