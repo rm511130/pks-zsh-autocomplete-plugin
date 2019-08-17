@@ -44,23 +44,24 @@ You can continue to press `Tab` for additional choices until you are satisfied w
 
 * On a Mac, you'll need you will need to execute the following command to install the [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) framework. 
 
-```sh -c "$(curl -fsSL https://preview.tinyurl.com/install-oh-my-zsh-MacOS)"```
+```sh -c "$(curl -fsSL https://tinyurl.com/install-oh-my-zsh-MacOS)"```
 
-* For other Operating Systems look for instructions [here](https://github.com/robbyrussell/oh-my-zsh)
+* For other Operating Systems look for the oh-my-zsh framework installation instructions [here](https://github.com/robbyrussell/oh-my-zsh)
+
 
 ### Let's extend the Oh-My-Zsh framework with a custom plugin:
 
 * Clone this repo to your zsh plugins directory:
 
 ```
-$ cd ~/.oh-my-zsh/custom/plugins
-$ git clone https://github.com/rm511130/pks-zsh-autocomplete-plugin.git pks
+cd ~/.oh-my-zsh/custom/plugins
+git clone https://github.com/rm511130/pks-zsh-autocomplete-plugin.git pks
 ```
 
 * Add the `pks` plugin to your `~/.zshrc` file:
 
 ```
-plugins=(... pks)
+plugins=(... pks ...)
 ```
 
 In my case, for example, that part of the `~/.zshrc` file looks like this:
