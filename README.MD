@@ -51,7 +51,7 @@ You can continue to press `Tab` for additional choices until you are satisfied w
 
 ### Let's extend the Oh-My-Zsh framework with a custom plugin:
 
-* Clone this repo to your zsh plugins directory:
+* Clone this repo to your zsh custom plugins directory:
 
 ```
 cd ~/.oh-my-zsh/custom/plugins
@@ -64,7 +64,7 @@ git clone https://github.com/rm511130/pks-zsh-autocomplete-plugin.git pks
 plugins=(... pks ...)
 ```
 
-In my case, for example, that part of the `~/.zshrc` file looks like this:
+In my case, as an example, that part of the `~/.zshrc` file looks like this:
 
 ```
 # Which plugins would you like to load?
