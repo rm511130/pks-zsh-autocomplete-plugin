@@ -42,7 +42,7 @@ You can continue to press `Tab` for additional choices until you are satisfied w
 
 * Download the latest version of the [PKS CLI](https://network.pivotal.io/products/pivotal-container-service)
 
-* On a Mac, you'll need you will need to execute the following command to install the [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) framework. 
+* On a Mac, you'll need you will need to execute the following command to install the [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) framework: 
 
 ```sh -c "$(curl -fsSL https://tinyurl.com/install-oh-my-zsh-MacOS)"```
 
