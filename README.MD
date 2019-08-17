@@ -80,7 +80,7 @@ source $ZSH/oh-my-zsh.sh
 
 As you can see, the `pks` custom plugin has been added to the list.
 
-Additionally, in order to make the autocompletion work, I had to append at the end of the same `~/.zshrc` file with the following lines:
+Additionally, in order to enable the oh-my-zsh autocompletion, append the following lines at the end of the same `~/.zshrc` file:
 
 ```
 # enable autocomplete function
@@ -90,7 +90,16 @@ compinit
 
 ### Next Steps
 
-* Make sure you start a new terminal window so that the changes described above take effect, and try typing `pks` and then press the `Tab` key. You should see the following list of choices.
+* Make sure you start a new terminal window so that the changes described above take effect.
+
+* Double check that you are using `zsh`
+
+```
+echo $SHELL
+/bin/zsh
+```
+
+* Try typing `pks` and then press the `Tab` key. You should see the following list of choices:
 
 ```
 cluster                 -- View the details of the cluster
