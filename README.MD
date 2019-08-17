@@ -49,7 +49,7 @@ You can continue to press `Tab` for additional choices until you are satisfied w
 * For other Operating Systems look for the oh-my-zsh framework installation instructions [here](https://github.com/robbyrussell/oh-my-zsh)
 
 
-### Let's extend the Oh-My-Zsh framework with a custom plugin:
+### Let's extend the Oh-My-Zsh framework with a custom PKS plugin:
 
 * Clone this repo to your zsh custom plugins directory:
 
