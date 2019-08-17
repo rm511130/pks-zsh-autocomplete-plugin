@@ -80,7 +80,7 @@ source $ZSH/oh-my-zsh.sh
 
 As you can see, the `pks` custom plugin has been added to the list.
 
-Additionally, in order to make the autocompletion work, I had to append at the end of the same `~/.zshrc` the following lines:
+Additionally, in order to make the autocompletion work, I had to append at the end of the same `~/.zshrc` file with the following lines:
 
 ```
 # enable autocomplete function
