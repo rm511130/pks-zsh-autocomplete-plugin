@@ -42,7 +42,13 @@ You can continue to press `Tab` for additional choices until you are satisfied w
 
 * Download the latest version of the [PKS CLI](https://network.pivotal.io/products/pivotal-container-service)
 
-* On a Mac, you'll need you will need to execute the following command to install the [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) framework: 
+* You also need [zsh](http://www.zsh.org/). The Z shell (Zsh) is a Unix shell that can be used as an interactive login shell and as a command interpreter for shell scripting. Zsh is an extended Bourne shell with a large number of improvements, including some features of Bash, ksh, and tcsh. In June 2019, Apple announced that the forthcoming macOS Catalina (10.15) would adopt Zsh as the default shell, replacing Bash. How can you tell if you are running zsh?
+
+```echo $SHELL```
+
+If you are not using zsh, here's an example of how to install it.
+
+* On a Mac, if you don't have zsh, you will need to execute the following command to install the [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) framework: 
 
 ```sh -c "$(curl -fsSL https://tinyurl.com/install-oh-my-zsh-MacOS)"```
 
