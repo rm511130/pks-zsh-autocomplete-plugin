@@ -75,3 +75,5 @@ Removing: bosh-cli--5.5.1... dialog--1.3-20190211.Mojave jenv--0.5.2.tar.gz...
 ==> Caveats
 ==> ncurses. <repeat of the same message>
 ```
+
+3. Back to the [oh-my-zsh installation](https://github.com/rm511130/pks-zsh-autocomplete-plugin/blob/master/README.MD/#Installation).
