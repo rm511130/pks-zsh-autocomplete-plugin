@@ -46,7 +46,7 @@ You can continue to press `Tab` for additional choices until you are satisfied w
 
 ```echo $SHELL```
 
-If you are not using zsh, here's an example of how to install it.
+If you are not using zsh, click [here](https://github.com/rm511130/pks-zsh-autocomplete-plugin/blob/master/Example_zsh_installation.MD) for examples of how to install it.
 
 * On a Mac, if you don't have zsh, you will need to execute the following command to install the [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) framework: 
 
